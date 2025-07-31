@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zen | Visionary Developer</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #f8f9fa;
+    }
+    
+    :root {
+      --primary: #ff2d55;
+      --secondary: #9c27b0;
+      --dark: #121212;
+      --darker: #0a0a0a;
+      --light: #f8f9fa;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 45, 85, 0.2);
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: white;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link.active {
+      color: white;
+    }
+    
+    .nav-link.active::after {
+      width: 100%;
+    }
+    
+    /* Page Layout */
+    .page {
+      position: absolute;
+      width: 100%;
+      min-height: 100vh;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform: translateY(50px);
+      padding-top: 80px;
+      padding-bottom: 40px;
+      overflow-y: auto;
+    }
+    
+    .page.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    
+    /* Home Section */
+    .home-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      animation: float 6s ease-in-out infinite;
+      box-shadow: 0 10px 30px rgba(255, 45, 85, 0.3);
+    }
+    
+    .avatar-inner {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+    }
+    
+    .home-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .home-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+    
+    .cta-button {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 45, 85, 0.4);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 45, 85, 0.5);
+    }
+    
+    /* About Section */
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .about-card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .profile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1.5rem;
+    }
+    
+    .profile-pic-inner {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background-color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+    }
+    
+    .profile-info h3 {
+      font-size: 1.8rem;
+      margin: 0;
+      margin-bottom: 0.3rem;
+    }
+    
+    .profile-info p {
+      color: var(--secondary);
+      margin: 0;
+      font-weight: 500;
+    }
+    
+    .trait {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .trait-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1rem;
+      font-size: 1.3rem;
+    }
+    
+    .trait-icon-inner {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .about-text {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Journey Section */
+    .journey-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      transform: translateX(-50%);
+    }
+    
+    .timeline-item {
+      padding: 1.5rem 0;
+      position: relative;
+    }
+    
+    .timeline-content {
+      width: 45%;
+      padding: 1.5rem;
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 45, 85, 0.3);
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: auto;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 4px rgba(30, 30, 30, 0.9);
+    }
+    
+    .timeline-date {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(30, 30, 30, 0.9);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--secondary);
+      white-space: nowrap;
+    }
+    
+    .timeline-item:nth-child(odd) .timeline-date {
+      left: calc(50% - 150px);
+    }
+    
+    .timeline-item:nth-child(even) .timeline-date {
+      left: calc(50% + 150px);
+    }
+    
+    .timeline-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    
+    .timeline-desc {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+    
+    /* Skills Section */
+    .skills-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .skill-card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(255, 45, 85, 0.2);
+      border-color: rgba(255, 45, 85, 0.3);
+    }
+    
+    .skill-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .skill-icon-inner {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background-color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+    }
+    
+    .skill-name {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .skill-desc {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+    
+    /* Contact Section */
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .contact-card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(255, 45, 85, 0.3);
+    }
+    
+    .contact-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 2rem;
+    }
+    
+    .contact-icon-inner {
+      width: 94px;
+      height: 94px;
+      border-radius: 50%;
+      background-color: var(--dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+    }
+    
+    .contact-text {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    
+    .contact-button {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 5px 20px rgba(255, 45, 85, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 45, 85, 0.6);
+    }
+    
+    .contact-button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.13) 0%,
+        rgba(255, 255, 255, 0.13) 77%,
+        rgba(255, 255, 255, 0.5) 92%,
+        rgba(255, 255, 255, 0.0) 100%
+      );
+      transform: rotate(30deg);
+    }
+    
+    .contact-button:hover::after {
+      animation: shine 1.5s ease;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes shine {
+      100% {
+        left: 160%;
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 1rem;
+      }
+      
+      .nav-links {
+        gap: 0.8rem;
+      }
+      
+      .home-title {
+        font-size: 2.2rem;
+      }
+      
+      .home-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        width: calc(100% - 80px);
+        margin-left: 80px;
+      }
+      
+      .timeline-dot {
+        left: 30px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-date,
+      .timeline-item:nth-child(even) .timeline-date {
+        left: 80px;
+        top: 30px;
+        transform: none;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .page {
+        padding-top: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" id="home-btn" class="nav-logo active">ZEN</a>
+      <div class="nav-links">
+        <a href="#" id="about-btn" class="nav-link">About</a>
+        <a href="#" id="journey-btn" class="nav-link">Journey</a>
+        <a href="#" id="skills-btn" class="nav-link">Skills</a>
+        <a href="#" id="contact-btn" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Page -->
+  <section id="home-page" class="page active">
+    <div class="home-container">
+      <div class="avatar">
+        <div class="avatar-inner">👨‍💻</div>
+      </div>
+      <h1 class="home-title">
+        <span class="gradient-text">Zen</span> 
+        <span class="text-white">Digital Artisan</span>
+      </h1>
+      <p class="home-subtitle">
+        Crafting the future one line of code at a time
+      </p>
+      <button id="explore-btn" class="cta-button">
+        Explore My Universe
+      </button>
+    </div>
+  </section>
+
+  <!-- About Page -->
+  <section id="about-page" class="page">
+    <div class="about-container">
+      <h2 class="section-title">
+        <span class="gradient-text">About Me</span>
+      </h2>
+      
+      <div class="about-content">
+        <div class="about-card">
+          <div class="profile-header">
+            <div class="profile-pic">
+              <div class="profile-pic-inner">👋</div>
+            </div>
+            <div class="profile-info">
+              <h3>Zen</h3>
+              <p>Digital Craftsman</p>
+            </div>
+          </div>
+          
+          <div class="trait">
+            <div class="trait-icon">
+              <div class="trait-icon-inner">💡</div>
+            </div>
+            <p>Innovative Thinker</p>
+          </div>
+          
+          <div class="trait">
+            <div class="trait-icon">
+              <div class="trait-icon-inner">⚡</div>
+            </div>
+            <p>Fast Executor</p>
+          </div>
+          
+          <div class="trait">
+            <div class="trait-icon">
+              <div class="trait-icon-inner">🎯</div>
+            </div>
+            <p>Precision Focused</p>
+          </div>
+        </div>
+        
+        <div class="about-text">
+          <p>
+            I'm Zen, a young creator who loves building things. It all started with a dream to become a game developer, 
+            and gradually expanded into Python, Java, Telegram Bots, Tools, and Websites.
+          </p>
+          <p>
+            I find joy in experimenting with code and creating fun tools. Knowing that my creations are useful to others 
+            brings me immense satisfaction.
+          </p>
+          <p>
+            I'm not a team player by nature - I prefer working solo, seeing projects evolve one after another. 
+            I also have a keen interest in ethical hacking (the legal kind, of course 😆).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Page -->
+  <section id="journey-page" class="page">
+    <div class="journey-container">
+      <h2 class="section-title">
+        <span class="gradient-text">My Evolution</span>
+      </h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2018</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">The Genesis</h3>
+            <p class="timeline-desc">
+              Started with dreams of game development, which led me to discover the world of programming.
+            </p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2019-2020</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Python & Java Era</h3>
+            <p class="timeline-desc">
+              Mastered Python and Java, building various tools and applications that solved real problems.
+            </p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2021-2022</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Automation Age</h3>
+            <p class="timeline-desc">
+              Created efficient Telegram bots and automation tools that provided utility to users worldwide.
+            </p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023-Present</div>
+          <div class="timeline-content">
+            <h3 class="timeline-title">Present Day</h3>
+            <p class="timeline-desc">
+              Focusing on building beautiful, functional projects while expanding my skills in development and security.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Page -->
+  <section id="skills-page" class="page">
+    <div class="skills-container">
+      <h2 class="section-title">
+        <span class="gradient-text">Technical Arsenal</span>
+      </h2>
+      
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <div class="skill-icon-inner">🐍</div>
+          </div>
+          <h3 class="skill-name">Python</h3>
+          <p class="skill-desc">
+            Advanced automation, bots, and backend systems
+          </p>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon">
+            <div class="skill-icon-inner">☕</div>
+          </div>
+          <h3 class="skill-name">Java</h3>
+          <p class="skill-desc">
+            High-performance applications and systems
+          </p>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon">
+            <div class="skill-icon-inner">⚡</div>
+          </div>
+          <h3 class="skill-name">Node.js</h3>
+          <p class="skill-desc">
+            Scalable network applications and APIs
+          </p>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon">
+            <div class="skill-icon-inner">🔒</div>
+          </div>
+          <h3 class="skill-name">Security</h3>
+          <p class="skill-desc">
+            Ethical hacking and vulnerability analysis
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Page -->
+  <section id="contact-page" class="page">
+    <div class="contact-container">
+      <h2 class="section-title">
+        <span class="gradient-text">Let's Connect</span>
+      </h2>
+      
+      <div class="contact-card">
+        <div class="contact-icon">
+          <div class="contact-icon-inner">📡</div>
+        </div>
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Get In Touch</h3>
+        <p class="contact-text">
+          Reach out through Telegram for collaborations, opportunities, or just to chat about tech
+        </p>
+        <a href="https://t.me/Zen_is_Aura" class="contact-button">
+          @Zen_is_Aura
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Page navigation
+    const pages = {
+      home: document.getElementById('home-page'),
+      about: document.getElementById('about-page'),
+      journey: document.getElementById('journey-page'),
+      skills: document.getElementById('skills-page'),
+      contact: document.getElementById('contact-page')
+    };
+    
+    const buttons = {
+      home: document.getElementById('home-btn'),
+      about: document.getElementById('about-btn'),
+      journey: document.getElementById('journey-btn'),
+      skills: document.getElementById('skills-btn'),
+      contact: document.getElementById('contact-btn'),
+      explore: document.getElementById('explore-btn')
+    };
+    
+    function showPage(page) {
+      // Hide all pages
+      Object.values(pages).forEach(p => p.classList.remove('active'));
+      
+      // Show selected page
+      pages[page].classList.add('active');
+      
+      // Update active button
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      buttons[page].classList.add('active');
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+    
+    // Event listeners
+    buttons.home.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('home');
+    });
+    buttons.about.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('about');
+    });
+    buttons.journey.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('journey');
+    });
+    buttons.skills.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('skills');
+    });
+    buttons.contact.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('contact');
+    });
+    buttons.explore.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('about');
+    });
+  </script>
+</body>
+</html>
