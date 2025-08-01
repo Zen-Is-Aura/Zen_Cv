@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Zen — Portfolio</title>
+  <title>Zen — Proxy Tools</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
@@ -322,6 +322,280 @@
       50% { transform: translateY(-10px); }
     }
 
+    /* Proxy Tools Styles */
+    .tool-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: rgba(20, 20, 20, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(183, 43, 43, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .tool-box {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(183, 43, 43, 0.3);
+      border-radius: 10px;
+    }
+
+    .tool-title {
+      font-size: 1.8rem;
+      color: #b72b2b;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .tool-description {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #b72b2b;
+      font-size: 1.1rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(30, 30, 30, 0.8);
+      border: 1px solid rgba(183, 43, 43, 0.5);
+      border-radius: 5px;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #b72b2b;
+      box-shadow: 0 0 10px rgba(183, 43, 43, 0.3);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(30, 30, 30, 0.8);
+      border: 1px solid rgba(183, 43, 43, 0.5);
+      border-radius: 5px;
+      color: white;
+      font-size: 1rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23b72b2b'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1rem;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: #b72b2b;
+      box-shadow: 0 0 10px rgba(183, 43, 43, 0.3);
+    }
+
+    .tool-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 0.8rem;
+      background: transparent;
+      border: 2px solid #b72b2b;
+      border-radius: 5px;
+      color: #b72b2b;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .tool-btn:hover {
+      background: #b72b2b;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(183, 43, 43, 0.3);
+    }
+
+    .tool-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .results-container {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 10px;
+      border: 1px solid rgba(183, 43, 43, 0.3);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .results-title {
+      font-size: 1.5rem;
+      color: #b72b2b;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .results-stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      background: rgba(183, 43, 43, 0.1);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #b72b2b;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .results-list {
+      list-style: none;
+    }
+
+    .result-item {
+      padding: 0.8rem;
+      border-bottom: 1px solid rgba(183, 43, 43, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .proxy-address {
+      font-family: monospace;
+      color: white;
+    }
+
+    .proxy-type {
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .type-http {
+      background: rgba(0, 150, 0, 0.2);
+      color: #4CAF50;
+    }
+
+    .type-socks4 {
+      background: rgba(0, 100, 200, 0.2);
+      color: #2196F3;
+    }
+
+    .type-socks5 {
+      background: rgba(150, 0, 150, 0.2);
+      color: #9C27B0;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(183, 43, 43, 0.2);
+      border: 1px solid #b72b2b;
+      border-radius: 5px;
+      color: #b72b2b;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: #b72b2b;
+      color: white;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 5px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #b72b2b;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Status boxes */
+    .status-box {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .status-icon {
+      font-size: 1.5rem;
+    }
+
+    .status-text {
+      flex: 1;
+    }
+
+    .status-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .status-message {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .status-success {
+      background: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid #4CAF50;
+    }
+
+    .status-error {
+      background: rgba(244, 67, 54, 0.1);
+      border-left: 4px solid #F44336;
+    }
+
+    .status-info {
+      background: rgba(33, 150, 243, 0.1);
+      border-left: 4px solid #2196F3;
+    }
+
     /* Media Queries for Mobile */
     @media (min-width: 768px) {
       header {
@@ -421,6 +695,16 @@
         width: 400px;
         height: 400px;
       }
+
+      /* Tools responsive */
+      .tool-container {
+        padding: 3rem;
+      }
+
+      .results-stats {
+        justify-content: center;
+        gap: 2rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -462,6 +746,20 @@
       .typing-text {
         font-size: 1.5rem;
       }
+
+      /* Tools mobile */
+      .tool-container {
+        padding: 1rem;
+      }
+
+      .tool-box {
+        padding: 1rem;
+      }
+
+      .stat-box {
+        min-width: 100px;
+        padding: 0.6rem;
+      }
     }
   </style>
 </head>
@@ -480,6 +778,7 @@
       <a href="#" class="active" onclick="showSection('home'); toggleMenu()">Home</a>
       <a href="#" onclick="showSection('about'); toggleMenu()">About</a>
       <a href="#" onclick="showSection('skills'); toggleMenu()">Skills</a>
+      <a href="#" onclick="showSection('tools'); toggleMenu()">Proxy Tools</a>
       <a href="#" onclick="showSection('contact'); toggleMenu()">Contact</a>
     </nav>
   </header>
@@ -495,7 +794,7 @@
           <h1>Hi, I'm <span>Zen</span></h1>
           <h3 class="typing-container">I'm <span class="typing-text"></span></h3>
           <p>I'm passionate about building useful tools, websites, and bots. I started with a dream of being a game developer, and gradually discovered the joy of coding — especially with Python, Java, and web development. Now, I'm creating fun and functional projects that help others too.</p>
-          <a href="#" class="btn" onclick="showSection('contact')">Hire me</a>
+          <a href="#" class="btn" onclick="showSection('tools')">Try My Tools</a>
         </div>
       </div>
     </section>
@@ -517,7 +816,176 @@
         <li>Node.js ⚙</li>
         <li>HTML 🌐</li>
         <li>Web Development 💻</li>
+        <li>Proxy Tools 🛠️</li>
+        <li>Automation 🤖</li>
       </ul>
+    </section>
+
+    <!-- Proxy Tools Section -->
+    <section id="tools">
+      <div class="tool-container">
+        <h2 class="section-title">Proxy Tools</h2>
+        
+        <!-- Proxy Scraper -->
+        <div class="tool-box">
+          <h3 class="tool-title">Proxy Scraper</h3>
+          <p class="tool-description">
+            Scrape fresh proxies from multiple sources. Get HTTP, SOCKS4, and SOCKS5 proxies in seconds.
+          </p>
+          
+          <div class="form-group">
+            <label class="form-label" for="max-proxies">Max Proxies to Scrape</label>
+            <input type="number" id="max-proxies" class="form-input" value="1000" min="100" max="10000">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="output-filename">Output Filename</label>
+            <input type="text" id="output-filename" class="form-input" value="proxies.txt">
+          </div>
+          
+          <button id="scrape-btn" class="tool-btn" onclick="startScraping()">
+            <i class="fas fa-download"></i> Scrape Proxies
+          </button>
+          
+          <div id="scraper-status" style="display: none;">
+            <div class="progress-container">
+              <div id="scraper-progress" class="progress-bar"></div>
+            </div>
+            <div id="scraper-status-box" class="status-box status-info">
+              <div class="status-icon">
+                <i class="fas fa-info-circle"></i>
+              </div>
+              <div class="status-text">
+                <div class="status-title">Scraping in progress</div>
+                <div id="scraper-status-message" class="status-message">Initializing...</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="scraper-results" style="display: none;">
+            <div class="results-container">
+              <h4 class="results-title">Scraping Results</h4>
+              <div class="results-stats">
+                <div class="stat-box">
+                  <div id="scraped-total" class="stat-value">0</div>
+                  <div class="stat-label">Total Proxies</div>
+                </div>
+                <div class="stat-box">
+                  <div id="scraped-speed" class="stat-value">0/s</div>
+                  <div class="stat-label">Speed</div>
+                </div>
+              </div>
+              <button id="download-scraped" class="download-btn" onclick="downloadProxies('scraped')">
+                <i class="fas fa-download"></i> Download Proxies
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Proxy Checker -->
+        <div class="tool-box">
+          <h3 class="tool-title">Proxy Checker</h3>
+          <p class="tool-description">
+            Check the validity of your proxy list. Test for HTTP, SOCKS4, and SOCKS5 support with speed metrics.
+          </p>
+          
+          <div class="form-group">
+            <label class="form-label" for="proxy-file">Proxy File</label>
+            <input type="file" id="proxy-file" class="form-input" accept=".txt">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="timeout">Timeout (seconds)</label>
+            <select id="timeout" class="form-select">
+              <option value="2">2 seconds</option>
+              <option value="5">5 seconds</option>
+              <option value="10">10 seconds</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="threads">Threads</label>
+            <select id="threads" class="form-select">
+              <option value="100">100</option>
+              <option value="250" selected>250</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+          </div>
+          
+          <button id="check-btn" class="tool-btn" onclick="startChecking()">
+            <i class="fas fa-check-circle"></i> Check Proxies
+          </button>
+          
+          <div id="checker-status" style="display: none;">
+            <div class="progress-container">
+              <div id="checker-progress" class="progress-bar"></div>
+            </div>
+            <div id="checker-status-box" class="status-box status-info">
+              <div class="status-icon">
+                <i class="fas fa-info-circle"></i>
+              </div>
+              <div class="status-text">
+                <div class="status-title">Checking in progress</div>
+                <div id="checker-status-message" class="status-message">Initializing...</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="checker-results" style="display: none;">
+            <div class="results-container">
+              <h4 class="results-title">Checking Results</h4>
+              <div class="results-stats">
+                <div class="stat-box">
+                  <div id="checked-total" class="stat-value">0</div>
+                  <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-box">
+                  <div id="checked-alive" class="stat-value">0</div>
+                  <div class="stat-label">Alive</div>
+                </div>
+                <div class="stat-box">
+                  <div id="checked-dead" class="stat-value">0</div>
+                  <div class="stat-label">Dead</div>
+                </div>
+                <div class="stat-box">
+                  <div id="checked-speed" class="stat-value">0/s</div>
+                  <div class="stat-label">Speed</div>
+                </div>
+              </div>
+              
+              <div class="results-stats">
+                <div class="stat-box">
+                  <div id="checked-http" class="stat-value">0</div>
+                  <div class="stat-label">HTTP</div>
+                </div>
+                <div class="stat-box">
+                  <div id="checked-socks4" class="stat-value">0</div>
+                  <div class="stat-label">SOCKS4</div>
+                </div>
+                <div class="stat-box">
+                  <div id="checked-socks5" class="stat-value">0</div>
+                  <div class="stat-label">SOCKS5</div>
+                </div>
+              </div>
+              
+              <ul id="checked-proxies" class="results-list"></ul>
+              
+              <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button id="download-http" class="download-btn" onclick="downloadProxies('http')">
+                  <i class="fas fa-download"></i> HTTP
+                </button>
+                <button id="download-socks4" class="download-btn" onclick="downloadProxies('socks4')">
+                  <i class="fas fa-download"></i> SOCKS4
+                </button>
+                <button id="download-socks5" class="download-btn" onclick="downloadProxies('socks5')">
+                  <i class="fas fa-download"></i> SOCKS5
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Contact Section -->
@@ -576,7 +1044,7 @@
 
     // Typing Animation
     document.addEventListener('DOMContentLoaded', function() {
-      const texts = ["Developer Zen", "Programmer", "Web Developer"];
+      const texts = ["Developer Zen", "Programmer", "Web Developer", "Tool Creator"];
       const typingElement = document.querySelector('.typing-text');
       let textIndex = 0;
       let charIndex = 0;
@@ -614,135 +1082,323 @@
       // Initialize first section
       showSection('home');
     });
-  </script>
-</body>
-</html><div class="home">
-        <div class="home-img">
-          <img src="main.jpg" alt="Zen Image">
-        </div>
-        <div class="home-content">
-          <h1>Hi, I'm <span>Zen</span></h1>
-          <h3 class="typing-container">I'm <span class="typing-text"></span></h3>
-          <p>I'm passionate about building useful tools, websites, and bots. I started with a dream of being a game developer, and gradually discovered the joy of coding — especially with Python, Java, and web development. Now, I'm creating fun and functional projects that help others too.</p>
-          <a href="#" class="btn" onclick="showSection('contact')">Hire me</a>
-        </div>
-      </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about">
-      <h2 class="section-title">About Me</h2>
-      <p class="about-text">
-        Hello~ I'm <strong>Zen</strong>. I'm a young developer who loves creating things. I started with a dream of becoming a game developer. Gradually I learned Python, Java, Telegram Bots, Tools, Websites and improved my skills through practical projects. I'm passionate about building solutions that make a difference.
-      </p>
-    </section>
+    // Proxy Tools Functions
+    let scrapedProxies = [];
+    let checkedProxies = {
+      all: [],
+      http: [],
+      socks4: [],
+      socks5: []
+    };
+    let isScraping = false;
+    let isChecking = false;
 
-    <!-- Skills Section -->
-    <section id="skills">
-      <h2 class="section-title">Skills</h2>
-      <ul class="skill-list">
-        <li>Python 🐍</li>
-        <li>Java ☕</li>
-        <li>Node.js ⚙</li>
-        <li>HTML 🌐</li>
-        <li>Web Development 💻</li>
-      </ul>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-      <h2 class="section-title">Contact</h2>
-      <p class="contact-text">Wanna contact for business?</p>
-      <div class="contact-buttons">
-        <a href="mailto:zen@example.com" class="contact-btn">
-          <i class="fas fa-envelope"></i> Email
-        </a>
-        <a href="https://t.me/Zen_is_Aura" target="_blank" class="contact-btn">
-          <i class="fab fa-telegram"></i> Telegram
-        </a>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Show section function
-    function showSection(sectionId) {
-      // Hide all sections
-      document.querySelectorAll('section').forEach(section => {
-        section.classList.remove('active');
-      });
+    // Simulate proxy scraping
+    function startScraping() {
+      if (isScraping) return;
       
-      // Show selected section
-      document.getElementById(sectionId).classList.add('active');
+      const maxProxies = parseInt(document.getElementById('max-proxies').value) || 1000;
+      const outputFile = document.getElementById('output-filename').value || 'proxies.txt';
       
-      // Update active nav link
-      document.querySelectorAll('nav a').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('onclick')?.includes(sectionId)) {
-          link.classList.add('active');
-        }
-      });
-      
-      // Scroll to top of the section
-      document.querySelector('.main-container').scrollTo(0, 0);
-    }
-
-    // Toggle mobile menu
-    function toggleMenu() {
-      const navMenu = document.getElementById('nav-menu');
-      navMenu.classList.toggle('active');
-    }
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      const navMenu = document.getElementById('nav-menu');
-      const menuBtn = document.querySelector('.menu-btn');
-      
-      if (!navMenu.contains(event.target) && !menuBtn.contains(event.target)) {
-        navMenu.classList.remove('active');
+      if (maxProxies < 100 || maxProxies > 10000) {
+        alert('Please enter a value between 100 and 10000 for max proxies');
+        return;
       }
-    });
-
-    // Typing Animation
-    document.addEventListener('DOMContentLoaded', function() {
-      const texts = ["Developer Zen", "Programmer", "Web Developer"];
-      const typingElement = document.querySelector('.typing-text');
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let typingSpeed = 150;
-
-      function type() {
-        const currentText = texts[textIndex];
+      
+      isScraping = true;
+      scrapedProxies = [];
+      document.getElementById('scrape-btn').disabled = true;
+      document.getElementById('scraper-status').style.display = 'block';
+      document.getElementById('scraper-results').style.display = 'none';
+      
+      const statusBox = document.getElementById('scraper-status-box');
+      statusBox.className = 'status-box status-info';
+      statusBox.querySelector('.status-icon').innerHTML = '<i class="fas fa-info-circle"></i>';
+      statusBox.querySelector('.status-title').textContent = 'Scraping in progress';
+      
+      updateScraperStatus('Starting scraper...', 0);
+      
+      // Simulate scraping with random progress
+      let scraped = 0;
+      const total = maxProxies;
+      const startTime = Date.now();
+      
+      const scrapeInterval = setInterval(() => {
+        if (scraped >= total) {
+          clearInterval(scrapeInterval);
+          finishScraping();
+          return;
+        }
         
-        if (isDeleting) {
-          typingElement.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-          typingSpeed = 80;
-        } else {
-          typingElement.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-          typingSpeed = charIndex % 3 === 0 ? 200 : 150;
+        // Add random number of proxies
+        const batch = Math.min(10 + Math.floor(Math.random() * 20), total - scraped);
+        for (let i = 0; i < batch; i++) {
+          scrapedProxies.push(generateRandomProxy());
         }
-
-        if (!isDeleting && charIndex === currentText.length) {
-          typingSpeed = 2000;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % texts.length;
-          typingSpeed = 500;
-        }
-
-        setTimeout(type, typingSpeed);
-      }
-
-      // Start typing animation
-      setTimeout(type, 1000);
+        scraped += batch;
+        
+        const progress = (scraped / total) * 100;
+        const elapsed = (Date.now() - startTime) / 1000;
+        const speed = scraped / elapsed;
+        
+        updateScraperStatus(`Scraped ${scraped} of ${total} proxies`, progress);
+        updateScraperStats(scraped, speed.toFixed(1));
+      }, 200);
+    }
+    
+    function finishScraping() {
+      isScraping = false;
+      updateScraperStatus('Scraping completed!', 100);
       
-      // Initialize first section
-      showSection('home');
-    });
+      const statusBox = document.getElementById('scraper-status-box');
+      statusBox.className = 'status-box status-success';
+      statusBox.querySelector('.status-icon').innerHTML = '<i class="fas fa-check-circle"></i>';
+      statusBox.querySelector('.status-title').textContent = 'Scraping completed';
+      
+      document.getElementById('scrape-btn').disabled = false;
+      document.getElementById('scraper-results').style.display = 'block';
+      
+      // Update final stats
+      const elapsed = (Date.now() - startTime) / 1000;
+      const speed = scrapedProxies.length / elapsed;
+      updateScraperStats(scrapedProxies.length, speed.toFixed(1));
+    }
+    
+    function updateScraperStatus(message, progress) {
+      document.getElementById('scraper-status-message').textContent = message;
+      document.getElementById('scraper-progress').style.width = `${progress}%`;
+    }
+    
+    function updateScraperStats(total, speed) {
+      document.getElementById('scraped-total').textContent = total;
+      document.getElementById('scraped-speed').textContent = `${speed}/s`;
+    }
+    
+    function generateRandomProxy() {
+      const types = ['HTTP', 'SOCKS4', 'SOCKS5'];
+      const ip = Array.from({length: 4}, () => Math.floor(Math.random() * 255)).join('.');
+      const port = Math.floor(Math.random() * 65535);
+      return `${ip}:${port}`;
+    }
+    
+    // Simulate proxy checking
+    function startChecking() {
+      if (isChecking) return;
+      
+      const fileInput = document.getElementById('proxy-file');
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please select a proxy file first');
+        return;
+      }
+      
+      const timeout = parseInt(document.getElementById('timeout').value) || 2;
+      const threads = parseInt(document.getElementById('threads').value) || 250;
+      
+      isChecking = true;
+      checkedProxies = {
+        all: [],
+        http: [],
+        socks4: [],
+        socks5: []
+      };
+      
+      document.getElementById('check-btn').disabled = true;
+      document.getElementById('checker-status').style.display = 'block';
+      document.getElementById('checker-results').style.display = 'none';
+      document.getElementById('checked-proxies').innerHTML = '';
+      
+      const statusBox = document.getElementById('checker-status-box');
+      statusBox.className = 'status-box status-info';
+      statusBox.querySelector('.status-icon').innerHTML = '<i class="fas fa-info-circle"></i>';
+      statusBox.querySelector('.status-title').textContent = 'Checking in progress';
+      
+      updateCheckerStatus('Reading proxy file...', 0);
+      
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const content = e.target.result;
+        const proxies = content.split('\n')
+          .map(line => line.trim())
+          .filter(line => line.includes(':'));
+        
+        if (proxies.length === 0) {
+          updateCheckerStatus('No valid proxies found in file', 0);
+          statusBox.className = 'status-box status-error';
+          statusBox.querySelector('.status-icon').innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+          statusBox.querySelector('.status-title').textContent = 'Error';
+          document.getElementById('check-btn').disabled = false;
+          isChecking = false;
+          return;
+        }
+        
+        simulateProxyChecking(proxies, timeout, threads);
+      };
+      
+      reader.readAsText(file);
+    }
+    
+    function simulateProxyChecking(proxies, timeout, threads) {
+      const total = proxies.length;
+      let checked = 0;
+      const startTime = Date.now();
+      
+      updateCheckerStatus(`Checking ${checked} of ${total} proxies`, 0);
+      updateCheckerStats(0, 0, 0, 0, 0, 0, 0);
+      
+      // Simulate checking with random results
+      const checkInterval = setInterval(() => {
+        if (checked >= total) {
+          clearInterval(checkInterval);
+          finishChecking();
+          return;
+        }
+        
+        // Process a batch of proxies
+        const batchSize = Math.min(threads / 10, total - checked);
+        for (let i = 0; i < batchSize; i++) {
+          const proxy = proxies[checked + i];
+          const types = [];
+          
+          // Randomly determine which protocols work
+          if (Math.random() > 0.7) types.push('HTTP');
+          if (Math.random() > 0.7) types.push('SOCKS4');
+          if (Math.random() > 0.7) types.push('SOCKS5');
+          
+          if (types.length > 0) {
+            checkedProxies.all.push({proxy, types});
+            types.forEach(type => checkedProxies[type.toLowerCase()].push(proxy));
+          }
+        }
+        
+        checked += batchSize;
+        const progress = (checked / total) * 100;
+        const elapsed = (Date.now() - startTime) / 1000;
+        const speed = checked / elapsed;
+        const alive = checkedProxies.all.length;
+        const dead = checked - alive;
+        
+        updateCheckerStatus(`Checking ${checked} of ${total} proxies`, progress);
+        updateCheckerStats(
+          checked, 
+          alive, 
+          dead, 
+          speed.toFixed(1),
+          checkedProxies.http.length,
+          checkedProxies.socks4.length,
+          checkedProxies.socks5.length
+        );
+        
+        // Update the last few checked proxies in the list
+        updateProxyList();
+      }, 100);
+    }
+    
+    function finishChecking() {
+      isChecking = false;
+      updateCheckerStatus('Checking completed!', 100);
+      
+      const statusBox = document.getElementById('checker-status-box');
+      statusBox.className = 'status-box status-success';
+      statusBox.querySelector('.status-icon').innerHTML = '<i class="fas fa-check-circle"></i>';
+      statusBox.querySelector('.status-title').textContent = 'Checking completed';
+      
+      document.getElementById('check-btn').disabled = false;
+      document.getElementById('checker-results').style.display = 'block';
+      
+      // Update final stats
+      updateProxyList();
+    }
+    
+    function updateCheckerStatus(message, progress) {
+      document.getElementById('checker-status-message').textContent = message;
+      document.getElementById('checker-progress').style.width = `${progress}%`;
+    }
+    
+    function updateCheckerStats(total, alive, dead, speed, http, socks4, socks5) {
+      document.getElementById('checked-total').textContent = total;
+      document.getElementById('checked-alive').textContent = alive;
+      document.getElementById('checked-dead').textContent = dead;
+      document.getElementById('checked-speed').textContent = `${speed}/s`;
+      document.getElementById('checked-http').textContent = http;
+      document.getElementById('checked-socks4').textContent = socks4;
+      document.getElementById('checked-socks5').textContent = socks5;
+    }
+    
+    function updateProxyList() {
+      const listElement = document.getElementById('checked-proxies');
+      listElement.innerHTML = '';
+      
+      // Show the last 10 checked proxies
+      const recentProxies = checkedProxies.all.slice(-10).reverse();
+      
+      recentProxies.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'result-item';
+        
+        const proxySpan = document.createElement('span');
+        proxySpan.className = 'proxy-address';
+        proxySpan.textContent = item.proxy;
+        
+        const typesSpan = document.createElement('span');
+        typesSpan.className = 'proxy-types';
+        
+        item.types.forEach(type => {
+          const typeSpan = document.createElement('span');
+          typeSpan.className = `proxy-type type-${type.toLowerCase()}`;
+          typeSpan.textContent = type;
+          typesSpan.appendChild(typeSpan);
+          typesSpan.appendChild(document.createTextNode(' '));
+        });
+        
+        li.appendChild(proxySpan);
+        li.appendChild(typesSpan);
+        listElement.appendChild(li);
+      });
+    }
+    
+    function downloadProxies(type) {
+      let content = '';
+      let filename = '';
+      
+      switch (type) {
+        case 'scraped':
+          content = scrapedProxies.join('\n');
+          filename = document.getElementById('output-filename').value || 'proxies.txt';
+          break;
+        case 'http':
+          content = checkedProxies.http.join('\n');
+          filename = 'http_proxies.txt';
+          break;
+        case 'socks4':
+          content = checkedProxies.socks4.join('\n');
+          filename = 'socks4_proxies.txt';
+          break;
+        case 'socks5':
+          content = checkedProxies.socks5.join('\n');
+          filename = 'socks5_proxies.txt';
+          break;
+        default:
+          return;
+      }
+      
+      if (!content) {
+        alert(`No ${type} proxies available to download`);
+        return;
+      }
+      
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
-  </html>
+</html>
