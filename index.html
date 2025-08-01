@@ -525,6 +525,135 @@
       <h2 class="section-title">Contact</h2>
       <p class="contact-text">Wanna contact for business?</p>
       <div class="contact-buttons">
+        <a href="mailto:joanorarc2@gmail.com" class="contact-btn">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+        <a href="https://t.me/Zen_is_Aura" target="_blank" class="contact-btn">
+          <i class="fab fa-telegram"></i> Telegram
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Show section function
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+      
+      // Update active nav link
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick')?.includes(sectionId)) {
+          link.classList.add('active');
+        }
+      });
+      
+      // Scroll to top of the section
+      document.querySelector('.main-container').scrollTo(0, 0);
+    }
+
+    // Toggle mobile menu
+    function toggleMenu() {
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const navMenu = document.getElementById('nav-menu');
+      const menuBtn = document.querySelector('.menu-btn');
+      
+      if (!navMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+        navMenu.classList.remove('active');
+      }
+    });
+
+    // Typing Animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const texts = ["Developer Zen", "Programmer", "Web Developer"];
+      const typingElement = document.querySelector('.typing-text');
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      let typingSpeed = 150;
+
+      function type() {
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+          typingElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+          typingSpeed = 80;
+        } else {
+          typingElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+          typingSpeed = charIndex % 3 === 0 ? 200 : 150;
+        }
+
+        if (!isDeleting && charIndex === currentText.length) {
+          typingSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          typingSpeed = 500;
+        }
+
+        setTimeout(type, typingSpeed);
+      }
+
+      // Start typing animation
+      setTimeout(type, 1000);
+      
+      // Initialize first section
+      showSection('home');
+    });
+  </script>
+</body>
+</html><div class="home">
+        <div class="home-img">
+          <img src="main.jpg" alt="Zen Image">
+        </div>
+        <div class="home-content">
+          <h1>Hi, I'm <span>Zen</span></h1>
+          <h3 class="typing-container">I'm <span class="typing-text"></span></h3>
+          <p>I'm passionate about building useful tools, websites, and bots. I started with a dream of being a game developer, and gradually discovered the joy of coding — especially with Python, Java, and web development. Now, I'm creating fun and functional projects that help others too.</p>
+          <a href="#" class="btn" onclick="showSection('contact')">Hire me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="about-text">
+        Hello~ I'm <strong>Zen</strong>. I'm a young developer who loves creating things. I started with a dream of becoming a game developer. Gradually I learned Python, Java, Telegram Bots, Tools, Websites and improved my skills through practical projects. I'm passionate about building solutions that make a difference.
+      </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <ul class="skill-list">
+        <li>Python 🐍</li>
+        <li>Java ☕</li>
+        <li>Node.js ⚙</li>
+        <li>HTML 🌐</li>
+        <li>Web Development 💻</li>
+      </ul>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-text">Wanna contact for business?</p>
+      <div class="contact-buttons">
         <a href="mailto:zen@example.com" class="contact-btn">
           <i class="fas fa-envelope"></i> Email
         </a>
